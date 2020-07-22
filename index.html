@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>my_extenstion</title>
 	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 </head>
@@ -18,46 +20,15 @@
 		<div class="main">
 
 			<div class="main__input">
-				<input type="text" class="text_enter" placeholder="Перевести слово или фразу...">
+				<input type="text" id="input" class="text_enter" placeholder="Перевести слово или фразу...">
+				<i class="material-icons">close</i>
 			</div>
 
 			<div class="main__content">
 				<span>Недавно просмотренные</span>
-
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>
-
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>	
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>																
-				<div class="content__block">
-					<p class="entered__word">Preguntar</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
-				</div>																																							
+				<div id="content"></div>
 			</div>
+
 		</div>
 
 		<div class="footer">
@@ -72,6 +43,9 @@
 			</a>				
 		</div>
 	</div>
-	<script src="main.js"></script>
+	
+	<script src="js/main.js"></script>
+	<script src="js/accordion.js"></script>    
+	<script src="index.js"></script>
 </body>
 </html>
