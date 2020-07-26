@@ -51,3 +51,23 @@ function createLoader() {
 		</div>
 	`
 }
+
+function createHeader() {
+	return `
+		<div class="header">
+			<span class="header__logo"><small>spain</small><strong>box</strong></span>
+			<span class="header__title">переводчик</span>
+			<a href="#" class="to-login"><i class="material-icons">login</i>Войти</a>
+		</div>
+	`
+}
+
+function createFooter() {
+	return `
+		<div class="footer">
+			<a href="#" class="footer__block"><i class="material-icons">bookmarks</i></a>
+			<a href="#" class="footer__block"><i class="material-icons">import_contacts</i></a>			
+			<a href="#" class="footer__block"><i class="material-icons">settings</i></a>				
+		</div>
+	`
+}

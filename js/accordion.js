@@ -3,11 +3,11 @@ const accordionItem = document.querySelectorAll(".accordion-item");
 
 accordionItem.forEach((el) =>
   el.addEventListener("click", () => {
-    if (el.classList.contains("active")) {
-      el.classList.remove("active")
+    if (el.classList.contains("open")) {
+      el.classList.remove("open")
     } else {
-      accordionItem.forEach((el2) => el2.classList.remove("active"))
-      el.classList.add("active")
+      accordionItem.forEach((el2) => el2.classList.remove("open"))
+      el.classList.add("open")
     }
   })
 )

@@ -1,35 +1,126 @@
-const getTemplate = (item) => {
+const getTemplate = (items = []) => {
+	const item = items.map(i => {
+		const various = i.translatedText.map(t => t)
+		const v = various.map(v => {
+			return `
+				<div class="paragraph__block">
+						<p class="entered__word">${i.text}</p>
+						<span class="pronuncuation"><i class="material-icons">l</i></span>
+						<div class="paragraph__translation">${v}</div>
+						<div class="add__to__dictionary">
+							<i class="material-icons">import_contacts</i>
+							</div>
+				</div>	
+			`
+		})
 		return `
-			<div class="content__block">
+			<div class="content__block" data-type="item">
 				<div class="accordion-item">
-					<p class="entered__word">${item}</p>
-					<p class="translations truncate">Просить, спросить, попросить</p>
+					<p class="entered__word">${i.text}</p>
+					<p class="translations truncate">${various.join(', ')}</p>
 		      <div class="accordion__triger">
-						 <i class="material-icons">chevron_right</i>
+						 <i class="material-icons" data-type="arrow">chevron_right</i>
 		      </div>
-
-		      <div class="paragraph">
-						<div class="content__block">
-							<p class="entered__word" data-type="item" data-id="${item}">${item}</p>
-							<div class="translations">попросить</div>
-				      <div class="accordion__triger">
-								 <i class="material-icons">import_contacts</i>
-				      </div>								
-						</div>								
-		      </div>
+		      <div class="paragraph">${v.join(' ')}</div>
 		  	</div>
 			</div>
 		`	
+	})
+	return item
+}
+
+const loader = () => {
+	return `
+		<div class="loader loader--style5" title="4">
+		  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+		     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+		    <rect x="0" y="0" width="4" height="10" fill="#333">
+		      <animateTransform attributeType="xml"
+		        attributeName="transform" type="translate"
+		        values="0 0; 0 20; 0 0"
+		        begin="0" dur="0.6s" repeatCount="indefinite" />
+		    </rect>
+		    <rect x="10" y="0" width="4" height="10" fill="#333">
+		      <animateTransform attributeType="xml"
+		        attributeName="transform" type="translate"
+		        values="0 0; 0 20; 0 0"
+		        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+		    </rect>
+		    <rect x="20" y="0" width="4" height="10" fill="#333">
+		      <animateTransform attributeType="xml"
+		        attributeName="transform" type="translate"
+		        values="0 0; 0 20; 0 0"
+		        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+		    </rect>
+		  </svg>
+		</div>
+	`
 }
 
 
 class SpainBox {
 	constructor(selector, options) {
-		this.$el = document.querySelector(selector)
+		this.options = options
+		this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector
+		this.$nodeItem = undefined
+		this.selectedId = null
+
 		this.render()
+		this.setup()
 	}
 
 	render() {
-		this.$el.innerHTML = getTemplate('data')
+		const {data} = this.options
+		this.$el.innerHTML = data ? getTemplate(data) : loader()
 	}
+
+	setup() {
+		this.clickHandler = this.clickHandler.bind(this)
+		this.$nodeItem = this.$el.querySelector('.content__block')
+		if (this.$nodeItem) this.$nodeItem.addEventListener('click', this.clickHandler)
+		this.$arrow = this.$el.querySelector('[data-type="arrow"]')
+	}
+
+	clickHandler(event) {
+		const {type} = event.target.dataset
+		if (type === 'arrow') {
+			this.toggle()
+		} else if (type === 'item') {
+			const id = event.target.dataset.id
+			this.select(id)
+		} 
+	}
+
+	get isOpen() {
+		return this.$nodeItem.classList.contains('open')
+	}
+
+	get current() {
+		return this.options.data.find(item => item.id === this.selectedId)
+	}
+
+	toggle() {
+		this.isOpen ? this.close() : this.open()
+	}
+
+	select(id) {
+		this.selectedId = id
+		// this.$nodeItem.querySelector(`[data-id="${id}"]`).classList.add('selected')
+		// console.log(id)
+	}
+
+	open() {
+		this.$nodeItem.classList.add('open')
+		this.$arrow.textContent =' expand_more'
+	}
+
+	close() {
+		this.$nodeItem.classList.remove('open')
+		this.$arrow.textContent = 'chevron_right'
+	}
+
+	destroy() {
+		this.$el.removeEventListener('click', this.clickHandler)
+		this.$el.innerHTML = ''
+	}	
 }
