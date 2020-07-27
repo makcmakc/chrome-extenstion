@@ -5,7 +5,9 @@ const getTemplate = (items = []) => {
 			return `
 				<div class="paragraph__block">
 						<p class="entered__word">${i.text}</p>
-						<span class="pronuncuation"><i class="material-icons">volume_up</i></span>
+						<span class="pronuncuation">
+							<i class="material-icons" data-type="speaker" data-value="${i.text}">volume_up</i>
+						</span>
 						<div class="paragraph__translation">${v}</div>
 						<div class="add__to__dictionary">
 							<i class="material-icons">import_contacts</i>
@@ -65,13 +67,14 @@ class SpainBox {
 		this.$nodeItems = undefined
 		this.$nodeItem = undefined
 		this.selectedId = null
+		// this.synth = window.speechSynthesis || window.mozspeechSynthesis || window.webkitspeechSynthesis
 
 		this.render()
 		this.setup()
 	}
 
 	render() {
-		const {data} = this.options
+		const { data } = this.options
 		this.$el.innerHTML = data ? getTemplate(data) : loader()
 	}
 
@@ -97,7 +100,19 @@ class SpainBox {
 		} else if (type === 'item') {
 			const id = event.target.dataset.id
 			this.select(id)
+		} else if (type === 'speaker') {
+			const value = event.target.dataset.value
+			this.speak(value)
 		}
+		
+	}
+
+	speak(value) {
+		const synth = window.speechSynthesis || window.mozspeechSynthesis || window.webkitspeechSynthesis
+		console.log(value.toLowerCase())
+	  const toSpeak = new SpeechSynthesisUtterance(value.toLowerCase())
+	  toSpeak.lang = 'es-ES'
+	  synth.speak(toSpeak)
 	}
 
 	get isOpen() {
@@ -133,3 +148,19 @@ class SpainBox {
 		this.$el.innerHTML = ''
 	}	
 }
+
+
+// class Speech extends SpainBox {
+// 	constructor(options) {
+// 		super(options)
+// 		this.synth = window.speechSynthesis
+// 	}
+
+// 	toSpeak() {
+// 	  const toSpeak = new SpeechSynthesisUtterance()
+// 	  toSpeak.lang = 'en-US'
+// 	  toSpeak.text = 'Asta Luego!'
+
+// 	  this.synth.speak(toSpeak);		
+// 	}
+// }
