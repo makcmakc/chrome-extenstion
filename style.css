@@ -101,7 +101,7 @@ body {
 
 .main {
 	max-height: 320px;
-	min-height: 50px;
+	min-height: 20px;
 	margin-bottom: 20px;
 	height: auto;
 	position: relative;
@@ -142,8 +142,13 @@ body {
   line-height: 25px;
   padding-left: 60px;
   margin-top: 10px;
-  padding-bottom: 24px;
+  padding-bottom: 15px;
   text-transform: lowercase;
+  position: relative;
+}
+
+.main__content .content__block:nth-last-child() {
+	padding-bottom: 15px;
 }
 
 .main__content .content__block .entered__word {
@@ -180,6 +185,7 @@ body {
   color: #454545;
   display: none;
   padding: 1rem 0;
+  cursor: default;
 }
 .main__content .accordion-item .paragraph .paragraph__block {
 	margin-left: 10px;
@@ -197,6 +203,10 @@ body {
 	margin-left: 75px;
 	display: none;
 	cursor: pointer;
+}
+
+.main__content .accordion-item .paragraph .paragraph__block .pronuncuation i:hover {
+	color: var(--red-bg);
 }
 
 .main__content .accordion-item.open .accordion__triger i {
@@ -248,7 +258,9 @@ svg rect {
 }
 
 .loader {
-	margin-left: 30px;
+	display: flex;
+	justify-content: center;
+/*	margin-left: 30px;
 	margin-top: 10px;
-	position: absolute;
+	position: absolute;*/
 }

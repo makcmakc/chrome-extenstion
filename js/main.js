@@ -5,7 +5,7 @@ const getTemplate = (items = []) => {
 			return `
 				<div class="paragraph__block">
 						<p class="entered__word">${i.text}</p>
-						<span class="pronuncuation"><i class="material-icons">l</i></span>
+						<span class="pronuncuation"><i class="material-icons">volume_up</i></span>
 						<div class="paragraph__translation">${v}</div>
 						<div class="add__to__dictionary">
 							<i class="material-icons">import_contacts</i>
@@ -14,7 +14,7 @@ const getTemplate = (items = []) => {
 			`
 		})
 		return `
-			<div class="content__block" data-type="item">
+			<div class="content__block" data-type="item" data-id="${i.id}">
 				<div class="accordion-item">
 					<p class="entered__word">${i.text}</p>
 					<p class="translations truncate">${various.join(', ')}</p>
@@ -26,7 +26,7 @@ const getTemplate = (items = []) => {
 			</div>
 		`	
 	})
-	return item
+	return item.join('')
 }
 
 const loader = () => {
@@ -62,6 +62,7 @@ class SpainBox {
 	constructor(selector, options) {
 		this.options = options
 		this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector
+		this.$nodeItems = undefined
 		this.$nodeItem = undefined
 		this.selectedId = null
 
@@ -76,8 +77,16 @@ class SpainBox {
 
 	setup() {
 		this.clickHandler = this.clickHandler.bind(this)
+		// this.$nodeItems = this.$el.querySelectorAll('.content__block')
 		this.$nodeItem = this.$el.querySelector('.content__block')
-		if (this.$nodeItem) this.$nodeItem.addEventListener('click', this.clickHandler)
+		this.$nodeItem.addEventListener('click', this.clickHandler)
+
+		if (this.$nodeItems) {
+			this.$nodeItems.forEach(node => {
+				node.addEventListener('click', this.clickHandler)
+			})
+		}
+
 		this.$arrow = this.$el.querySelector('[data-type="arrow"]')
 	}
 
@@ -88,7 +97,7 @@ class SpainBox {
 		} else if (type === 'item') {
 			const id = event.target.dataset.id
 			this.select(id)
-		} 
+		}
 	}
 
 	get isOpen() {
@@ -111,7 +120,7 @@ class SpainBox {
 
 	open() {
 		this.$nodeItem.classList.add('open')
-		this.$arrow.textContent =' expand_more'
+		this.$arrow.textContent = 'expand_more'
 	}
 
 	close() {
