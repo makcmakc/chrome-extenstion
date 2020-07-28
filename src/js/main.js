@@ -60,7 +60,7 @@ const loader = () => {
 }
 
 
-class SpainBox {
+export class SpainBox {
 	constructor(selector, options) {
 		this.options = options
 		this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector

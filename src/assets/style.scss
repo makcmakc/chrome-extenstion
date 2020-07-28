@@ -1,0 +1,280 @@
+
+$red-bg: #c60b1e;
+$yellow-bg: #ffc400;
+$header-height: 46px;
+$footer-height: 46px;
+$light-black: rgba(0, 0, 0, 0.5);
+$light-white: rgba(255, 255, 255, 0.9);
+
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+
+  &:hover {
+    background: #555;
+  }
+}
+
+/* Handle on hover */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 280px;
+  height: 1.4em;
+  white-space: nowrap;
+}
+
+.app {
+  max-width: 400px;
+  max-height: 500px;
+  width: 390px;
+}
+
+/* HEADER */
+
+.header {
+  width: 100%;
+  height: $header-height;
+  background: $red-bg;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-start;
+
+  .header__logo {
+    font-size: 30px;
+    color: $light-white;
+    margin-left: 10px;
+  }
+
+  .header__title {
+    color: $light-white;
+    font-size: 16px;
+    border: 1px solid $light-white;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 3px 5px;
+    margin-left: 10px;
+  }
+
+  .to-login {
+    color: $light-white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    margin-left: 75px;
+
+    i {
+      color: $light-white;
+      font-size: 24px;
+      margin-right: 5px;
+    }
+  }
+}
+
+/* MAIN */
+
+.main {
+  max-height: 320px;
+  min-height: 20px;
+  margin-bottom: 20px;
+  height: auto;
+  position: relative;
+
+  .main__input {
+    padding: 12px;
+    width: 380px;
+    position: fixed;
+    margin-top: -50px;
+  }
+}
+
+.main__content {
+  margin-top: 50px;
+  height: inherit;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main .main__input .text_enter {
+  width: 90%;
+  padding: 8px;
+}
+
+.main__content {
+  span {
+    color: $light-black;
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+
+  .content__block {
+    display: flex;
+    align-items: left;
+    text-align: left;
+    flex-direction: column;
+    box-sizing: border-box;
+    line-height: 25px;
+    padding-left: 60px;
+    margin-top: 10px;
+    padding-bottom: 15px;
+    text-transform: lowercase;
+    position: relative;
+
+    .translations {
+      font-size: 16px;
+      color: $light-black;
+    }
+  }
+
+  .paragraph__block .paragraph__translation {
+    font-size: 16px;
+    color: $light-black;
+  }
+
+  .content__block {
+    .accordion__triger {
+      display: flex;
+      cursor: pointer;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: -38px;
+      margin-right: 15px;
+      outline: none;
+    }
+
+    .add__to__dictionary {
+      display: flex;
+      cursor: pointer;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: -38px;
+      margin-right: 15px;
+      outline: none;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .accordion-item {
+    .accordion__triger i {
+      font-size: 24px;
+      color: $red-bg;
+    }
+
+    .paragraph {
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: inherit;
+      color: #454545;
+      display: none;
+      padding: 1rem 0;
+      cursor: default;
+
+      .paragraph__block {
+        margin-left: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        &:hover .pronuncuation {
+          display: block;
+        }
+
+        .pronuncuation {
+          position: absolute;
+          margin-top: -31px;
+          margin-left: 75px;
+          display: none;
+          cursor: pointer;
+
+          i:hover {
+            color: $red-bg;
+          }
+        }
+
+        .add__to__dictionary i:hover {
+          color: $red-bg;
+        }
+      }
+    }
+
+    &.open .accordion__triger i {
+      color: $red-bg;
+    }
+  }
+
+  .content__block.open .paragraph {
+    display: block;
+  }
+}
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: $footer-height;
+  background: $red-bg;
+
+  .footer__block {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    color: $light-black;
+
+    i {
+      color: #fff;
+      font-size: 25px;
+    }
+
+    &:nth-child(1), &:nth-child(2) {
+      border-right: 1px solid #fff;
+    }
+  }
+}
+
+/* LOADER */
+
+svg {
+  path, rect {
+    fill: $red-bg;
+  }
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+} 

@@ -1,3 +1,8 @@
+import { SpainBox } from './js/main.js';
+
+import './assets/style.scss'
+
+
 
 const translater = new SpainBox('#content', {
 	data: [
